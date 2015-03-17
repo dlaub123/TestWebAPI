@@ -23,12 +23,17 @@ namespace SportsStore.Controllers
             // Use RESTful WS
             IRepository wsRepo = new WSProductRepository();
             IEnumerable<Product> products = wsRepo.Products;
+
             Product aProduct = wsRepo.GetUniqueProduct(2);
-
             Task<string> bProductTask = wsRepo.GetUniqueProductAsync(2);
-            //bProductTask.Wait();  // causes lockup...
-            //string bProduct = bProductTask.Result;
-
+            bProductTask.ContinueWith(t =>
+                {
+                    string bProduct = bProductTask.Result;
+                    JSonHelper helper = new JSonHelper();
+                    Product product = helper.ConvertJSonToObject<Product>(bProduct);
+                    int i = 0;
+                }
+              );
             return View(products); // Indirect Repo call thru RESTFul WS
             //return View(repo.Products); // direct Repo call
         }

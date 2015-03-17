@@ -24,15 +24,15 @@
                 <th>Price</th>
                 <th></th>
             </tr>
-foreach (var ol in o.Lines) {
-    <tr>
-        <td colspan="2"></td>
-        <td>@ol.Product.Name</td>
-        <td>@ol.Count</td>
-        <td>@string.Format("{0:c}", ol.Product.Price)</td>
-        <td></td>
-    </tr>
-}
+            foreach (var ol in o.Lines) {
+                <tr>
+                    <td colspan="2"></td>
+                    <td>@ol.Product.Name</td>
+                    <td>@ol.Count</td>
+                    <td>@string.Format("{0:c}", ol.Product.Price)</td>
+                    <td></td>
+                </tr>
+            }
 }
     </table>
 </div>

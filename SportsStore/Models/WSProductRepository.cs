@@ -5,6 +5,9 @@ using System.Web;
 using System.Threading.Tasks;
 using RestSharp;
 using System.Threading.Tasks;
+using System.Runtime.Serialization.Json;
+using System.IO;
+using System.Text;
 
 // Improvements over book example:
 // a) use E-F queries to filter product at the database
@@ -58,7 +61,7 @@ namespace SportsStore.Models
             var request = new RestRequest("api/products/{id}", Method.GET);
             request.AddUrlSegment("id", id.ToString()); // replaces matching token in request.Resource
             var content = await client.GetContentAsync(request);
-            return content; // would obviously prefer a) returning Product object vs. Json string and b) NOT locking up.
+            return content; // would obviously prefer returning Product object vs. Json string (nicely mitiaged by simple json to object helper)
         }
 
 
@@ -116,4 +119,26 @@ namespace SportsStore.Models
             return client.SelectAsync(request, r => r);
         }
     }
+
+    public class JSonHelper
+    {
+        public string ConvertObjectToJSon<T>(T obj)
+        {
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T));
+            MemoryStream ms = new MemoryStream();
+            ser.WriteObject(ms, obj);
+            string jsonString = Encoding.UTF8.GetString(ms.ToArray());
+            ms.Close();
+            return jsonString;
+        }
+
+        public T ConvertJSonToObject<T>(string jsonString)
+        {
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(T));
+            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(jsonString));
+            T obj = (T)serializer.ReadObject(ms);
+            return obj;
+        }
+    }
+
 }
