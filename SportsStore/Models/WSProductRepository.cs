@@ -12,7 +12,8 @@ using System.Text;
 // Improvements over book example:
 // a) use E-F queries to filter product at the database
 // b) use RestSharp to invoke WS from MVC c# client
-// c) dabble in Restsharp async (along with c# 5 async)
+// c) use Restsharp async (along with c# 5 async)
+// d) commit local git repo to server git repo: https://github.com/dlaub123/TestWebAPI
 
 namespace SportsStore.Models
 {
