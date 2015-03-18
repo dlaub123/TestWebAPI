@@ -11,7 +11,7 @@ using System.Text;
 
 // Improvements over book example:
 // a) use E-F queries to filter product at the database
-// b) use RestSharp to invoke WS from MVC c# client
+// b) use RestSharp to invoke WS from MVC c# client (using the repo pattern, which sets up eventual refactoring to DI pattern)
 // c) use Restsharp async (along with c# 5 async)
 // d) commit local git repo to server git repo: https://github.com/dlaub123/TestWebAPI
 

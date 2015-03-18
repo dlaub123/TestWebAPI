@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Web.Http;
+using System.Net;
 
 namespace SportsStore.Models
 {
@@ -17,7 +19,9 @@ namespace SportsStore.Models
                 var query = from p in context.Products
                             where p.Id == id
                             select p;
-                return query.Single(); 
+                //Product result = query.SingleOrDefault(); 
+                return query.SingleOrDefault(); 
+
             
         }
 

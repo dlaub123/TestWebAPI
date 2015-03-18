@@ -22,16 +22,26 @@ namespace SportsStore.Controllers
             return Repository.Products;
         }
         // GET /api/products/1
-        public Product GetProduct(int id)
+        public IHttpActionResult /*Product*/ GetProduct(int id)
         {
-            return Repository.GetUniqueProduct(id);  // filter in the database
+            Product result = Repository.GetUniqueProduct(id);  // filter in the database
             //return Repository.Products.Where(p => p.Id == id).FirstOrDefault(); // filter after the database, in this method (could be evaluating millions of rows...)
+            //if (result == null)
+            //{
+            //    throw new HttpResponseException(HttpStatusCode.BadRequest);
+            //}
+            //else
+            //{
+            //    return result;
+            //}
+            return result == null ? (IHttpActionResult)BadRequest("No Product Found") : Ok(result);
         }
         public async Task PostProduct(Product product)
         {
             await Repository.SaveProductAsync(product);
         }
 
+        [Authorize(Roles = "Administrators")]
         public async Task DeleteProduct(int id)
         {
             await Repository.DeleteProductAsync(id);
