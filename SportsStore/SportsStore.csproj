@@ -168,11 +168,14 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\PrepController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\CustomResolver.cs" />
+    <Compile Include="Infrastructure\Identity\StoreAuthProvider.cs" />
     <Compile Include="Infrastructure\Identity\StoreIdentityDbContext.cs" />
     <Compile Include="Infrastructure\Identity\StoreIdentityDbInitializer.cs" />
     <Compile Include="Infrastructure\Identity\StoreRole.cs" />

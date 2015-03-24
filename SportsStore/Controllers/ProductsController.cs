@@ -13,7 +13,9 @@ namespace SportsStore.Controllers
     {
         public ProductsController()
         {
-            Repository = new ProductRepository();
+            //Repository = new ProductRepository();
+            Repository = (IRepository)GlobalConfiguration.Configuration.
+                DependencyResolver.GetService(typeof(IRepository));
         }
 
         // GET /api/products
@@ -36,9 +38,20 @@ namespace SportsStore.Controllers
             //}
             return result == null ? (IHttpActionResult)BadRequest("No Product Found") : Ok(result);
         }
-        public async Task PostProduct(Product product)
+
+        [Authorize(Roles = "Administrators")]
+        public async Task<IHttpActionResult> PostProduct(Product product)
         {
-            await Repository.SaveProductAsync(product);
+            //await Repository.SaveProductAsync(product);
+            if (ModelState.IsValid)
+            {
+                await Repository.SaveProductAsync(product);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         [Authorize(Roles = "Administrators")]
